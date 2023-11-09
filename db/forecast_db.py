@@ -23,6 +23,13 @@ class ForecastDB:
                 return fc
         return None
 
+    def find(self, from_date: datetime.date, to_date: datetime.date) -> list[WeatherForecast] | None:
+        forecasts_found = []
+        for fc in self.__forecasts:
+            if from_date <= fc.wfc_date <= to_date:
+                forecasts_found.append(fc)
+        return forecasts_found if len(forecasts_found) else None
+
     def add(self, forecast: WeatherForecastIn) -> WeatherForecast | None:
         for fc in self.__forecasts:
             if fc.wfc_date == forecast.wfc_date:

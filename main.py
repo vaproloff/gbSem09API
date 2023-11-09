@@ -32,6 +32,15 @@ async def get_one(wfc_date: datetime.date):
     raise HTTPException(status_code=404, detail='Forecast not found')
 
 
+@app.get("/forecasts/find/", response_model=list[WeatherForecast])
+async def get_one(from_date: datetime.date, to_date: datetime.date):
+    query = db.find(from_date, to_date)
+    if query is not None:
+        return query
+
+    raise HTTPException(status_code=404, detail='No forecast found')
+
+
 @app.post("/forecasts/add/", response_model=WeatherForecast)
 async def add(wfc: WeatherForecastIn):
     query = db.add(wfc)
