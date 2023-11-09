@@ -33,7 +33,7 @@ async def get_one(wfc_date: datetime.date):
 
 
 @app.get("/forecasts/find/", response_model=list[WeatherForecast])
-async def get_one(from_date: datetime.date, to_date: datetime.date):
+async def find(from_date: datetime.date, to_date: datetime.date):
     query = db.find(from_date, to_date)
     if query is not None:
         return query
